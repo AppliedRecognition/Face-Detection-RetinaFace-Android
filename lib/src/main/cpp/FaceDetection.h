@@ -11,16 +11,15 @@
 #include <android/bitmap.h>
 #include <onnxruntime/core/session/onnxruntime_cxx_api.h>
 #include "Postprocessing.h"
-#include "CpuPreprocessing.h"
+#include "Preprocessing.h"
 
 namespace verid {
 
     class FaceDetection {
     public:
-        explicit FaceDetection(const std::string &modelPath, Ort::SessionOptions&& options);
+        explicit FaceDetection(const std::string &modelPath, Ort::SessionOptions options);
         ~FaceDetection() = default;
-        int detectFaces(std::vector<float> &input, const int limit, float *buffer);
-        int detectFaces(JNIEnv *env, jobject bitmap, const int limit, float *buffer);
+        int detectFaces(std::vector<float> &input, int limit, float *buffer);
         int detectFaces(void *input, int width, int height, int bytesPerRow, int format, int limit, float *buffer);
     private:
         Ort::Env env_;
@@ -31,7 +30,7 @@ namespace verid {
         std::vector<const char*> outputNames_;
 
         Postprocessing postprocessing_;
-        CpuPreprocessing preprocessing_;
+        Preprocessing preprocessing_;
 
         void loadModelIO();
     };

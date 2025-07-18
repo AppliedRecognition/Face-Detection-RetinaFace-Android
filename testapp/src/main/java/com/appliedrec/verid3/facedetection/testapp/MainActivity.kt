@@ -36,7 +36,7 @@ import java.io.File
 
 class MainActivity : ComponentActivity() {
 
-    val faceDetectionViewModel: FaceDetectionViewModel by viewModels()
+    private val faceDetectionViewModel: FaceDetectionViewModel by viewModels()
 
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {

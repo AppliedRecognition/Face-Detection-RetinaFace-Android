@@ -9,11 +9,8 @@
 #include <iostream>
 #include <stdexcept>
 #include <algorithm>
-#include <android/log.h>
 #include <unistd.h>
-
-#define LOG_TAG "Ver-ID"
-#define LOGI(...) __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
+#include "Logger.h"
 
 namespace verid {
 
@@ -66,12 +63,12 @@ namespace verid {
             totalMs += std::chrono::duration<double, std::milli>(end - start).count();
         }
 
-        return totalMs / testRuns;
+        return totalMs / static_cast<double>(testRuns);
     }
 
     Ort::SessionOptions createSessionOptions(bool useNnapi, uint32_t nnapiFlags) {
         Ort::SessionOptions options;
-        int cores = sysconf(_SC_NPROCESSORS_ONLN);
+        int cores = static_cast<int>(sysconf(_SC_NPROCESSORS_ONLN));
         int numThreads = std::min(cores, 4);
         options.SetIntraOpNumThreads(numThreads);
         options.SetGraphOptimizationLevel(GraphOptimizationLevel::ORT_ENABLE_ALL);
@@ -92,14 +89,12 @@ namespace verid {
             const std::string& fp16modelPath,
             const std::string& int8modelPath)
     {
-        Ort::Env env(ORT_LOGGING_LEVEL_WARNING, "PerfTest");
+        Ort::Env env(ORT_LOGGING_LEVEL_WARNING, LOG_TAG);
 
         std::vector<Options> combinations = {
                 {fp32modelPath, false, 0},
                 {fp32modelPath, true, 0},
-                {fp32modelPath, true, NNAPI_FLAG_USE_FP16},
                 {fp32modelPath, true, NNAPI_FLAG_CPU_DISABLED},
-                {fp32modelPath, true, NNAPI_FLAG_USE_FP16 | NNAPI_FLAG_CPU_DISABLED},
 
                 {fp16modelPath, false, 0},
                 {fp16modelPath, true, NNAPI_FLAG_USE_FP16},
@@ -115,11 +110,7 @@ namespace verid {
             try {
                 auto sessionOptions = createSessionOptions(opt.useNnapi, opt.nnapiFlags);
                 Ort::Session session(env, opt.modelPath.c_str(), sessionOptions);
-
-                LOGI("Testing: %s, NNAPI: %s, Flags: %d", opt.modelPath.c_str(), (opt.useNnapi ? "ON" : "OFF"), opt.nnapiFlags);
                 double avgMs = runInference(session, 2, 2);
-                LOGI("Average inference time %.03f", avgMs);
-
                 results.push_back({opt, avgMs});
             } catch (const std::exception& e) {
                 LOGI("Error with %s: %s", opt.modelPath.c_str(), e.what());

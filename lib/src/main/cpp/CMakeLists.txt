@@ -25,7 +25,6 @@ add_library(
         FaceDetection.cpp
         OptimalSessionSettingsSelector.cpp
         Postprocessing.cpp
-        Preprocessing.cpp
 )
 
 # Path to ONNX Runtime headers

@@ -4,7 +4,7 @@ import android.content.Context
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class SessionConfigurationManager(context: Context, val modelPaths: Map<ModelVariant,String>) {
+internal class SessionConfigurationManager(context: Context, val modelPaths: Map<ModelVariant,String>) {
 
     private val prefs = context.getSharedPreferences("SessionConfiguration", Context.MODE_PRIVATE)
 
@@ -15,10 +15,10 @@ class SessionConfigurationManager(context: Context, val modelPaths: Map<ModelVar
             && allPrefs.containsKey(PreferenceKeys.USE_NNAPI)
             && allPrefs.containsKey(PreferenceKeys.NNAPI_FLAGS)
         ) {
-            return SessionConfiguration(
+            return SessionConfiguration.Custom(
                 ModelVariant.valueOf(allPrefs[PreferenceKeys.MODEL_VARIANT] as String),
                 allPrefs[PreferenceKeys.USE_NNAPI] as Boolean,
-                allPrefs[PreferenceKeys.NNAPI_FLAGS] as Int
+                NnapiOptions.fromFlags(allPrefs[PreferenceKeys.NNAPI_FLAGS] as Int)
             )
         }
         val config = withContext(Dispatchers.Default) {
@@ -27,7 +27,7 @@ class SessionConfigurationManager(context: Context, val modelPaths: Map<ModelVar
         prefs.edit()
             .putString(PreferenceKeys.MODEL_VARIANT, config.modelVariant.name)
             .putBoolean(PreferenceKeys.USE_NNAPI, config.useNnapi)
-            .putInt(PreferenceKeys.NNAPI_FLAGS, config.nnapiFlags)
+            .putInt(PreferenceKeys.NNAPI_FLAGS, config.nnapiOptions.toFlags())
             .commit()
         return config
     }
