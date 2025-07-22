@@ -153,7 +153,7 @@ constructor(context: Context, configuration: SessionConfiguration) : FaceDetecti
      * to free up resources when you no longer need an instance of FaceDetectionRetinaFace.
      */
     @Suppress("unused")
-    fun close() {
+    override suspend fun close() {
         lock.withLock {
             destroyNativeContext(nativeContext)
         }
