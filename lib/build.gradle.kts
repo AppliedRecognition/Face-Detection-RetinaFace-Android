@@ -1,3 +1,6 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.io.File
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
@@ -10,7 +13,7 @@ version = "1.0.0"
 
 android {
     namespace = "com.appliedrec.verid3.facedetection.retinaface"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 26
@@ -20,6 +23,10 @@ android {
         ndk {
             abiFilters += listOf("arm64-v8a", "x86_64")
         }
+    }
+
+    publishing {
+        singleVariant("release") {}
     }
 
     buildTypes {
@@ -35,8 +42,10 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    kotlinOptions {
-        jvmTarget = "11"
+    kotlin {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_11)
+        }
     }
     externalNativeBuild {
         cmake {
@@ -57,6 +66,40 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.verid.common.serialization)
+}
+
+
+
+val zipalignAar = tasks.register<Exec>("zipalignAar") {
+    val inputAar = layout.buildDirectory.file("outputs/aar/${project.name}-release.aar").get().asFile
+    val outputAar = inputAar
+
+    group = "build"
+    description = "Align AAR to 16KB"
+
+    // Assume environment has ANDROID_SDK_ROOT or ANDROID_HOME set
+    val sdkDir = System.getenv("ANDROID_SDK_ROOT")
+        ?: System.getenv("ANDROID_HOME")
+        ?: throw GradleException("ANDROID_SDK_ROOT or ANDROID_HOME environment variable not set.")
+
+    val buildToolsVersion = android.buildToolsVersion
+    val zipalignPath = File(sdkDir, "build-tools/$buildToolsVersion/zipalign").absolutePath
+
+    doFirst {
+        if (!File(zipalignPath).exists()) {
+            throw GradleException("zipalign not found at $zipalignPath. Please ensure Build Tools $buildToolsVersion is installed.")
+        }
+        if (!inputAar.exists()) {
+            throw GradleException("Release AAR not found: ${inputAar.absolutePath}. Run 'assembleRelease' first.")
+        }
+    }
+
+    commandLine(
+        zipalignPath,
+        "-f", "-v", "16384",
+        inputAar.absolutePath,
+        outputAar.absolutePath
+    )
 }
 
 publishing {
@@ -107,4 +150,8 @@ signing {
 
 tasks.dokkaHtml {
     outputDirectory.set(rootDir.resolve("docs"))
+}
+
+tasks.named("assemble").configure {
+    finalizedBy(zipalignAar)
 }
