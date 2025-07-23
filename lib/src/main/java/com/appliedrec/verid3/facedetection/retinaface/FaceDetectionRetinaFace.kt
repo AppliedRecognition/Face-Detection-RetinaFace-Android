@@ -36,7 +36,7 @@ import kotlin.math.max
 @Suppress("MemberVisibilityCanBePrivate")
 class FaceDetectionRetinaFace
 @Throws(Exception::class)
-constructor(context: Context, configuration: SessionConfiguration) : FaceDetection {
+constructor(context: Context, val configuration: SessionConfiguration) : FaceDetection {
 
     companion object {
         init {
