@@ -17,9 +17,7 @@ import com.appliedrec.verid3.common.EulerAngle
 import com.appliedrec.verid3.common.Face
 import com.appliedrec.verid3.common.Image
 import com.appliedrec.verid3.common.serialization.fromBitmap
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.appliedrec.verid3.common.use
 import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
 import org.junit.Assert
@@ -42,10 +40,11 @@ class FaceDetectionRetinaFaceTest {
         val bitmap = InstrumentationRegistry.getInstrumentation()
             .context.assets.open("image.jpg").use(BitmapFactory::decodeStream)
         val image = Image.fromBitmap(bitmap)
-        val faceDetection = FaceDetectionRetinaFace.create(
+        val faces = FaceDetectionRetinaFace.create(
             InstrumentationRegistry.getInstrumentation().targetContext
-        )
-        val faces = faceDetection.detectFacesInImage(image, 1)
+        ).use {
+            faceDetection -> faceDetection.detectFacesInImage(image, 1)
+        }
         Assert.assertEquals(1, faces.size)
         val expectedFace = loadExpectedFace()
         Assert.assertTrue(compareFaces(faces[0], expectedFace, image.width.toFloat() * 0.1f))
@@ -71,10 +70,11 @@ class FaceDetectionRetinaFaceTest {
                     inputStream.copyTo(outputStream)
                 }
             }
-            val faceDetection = FaceDetectionRetinaFace(
+            val faces = FaceDetectionRetinaFace(
                 context, config
-            )
-            val faces = faceDetection.detectFacesInImage(image, 1)
+            ).use { faceDetection ->
+                faceDetection.detectFacesInImage(image, 1)
+            }
             faces.firstOrNull()
         }
         faces.forEach { (_, face) ->
@@ -118,21 +118,22 @@ class FaceDetectionRetinaFaceTest {
         val bitmap = InstrumentationRegistry.getInstrumentation()
             .context.assets.open("image.jpg").use(BitmapFactory::decodeStream)
         val image = Image.fromBitmap(bitmap)
-        val faceDetection = FaceDetectionRetinaFace.create(
+        FaceDetectionRetinaFace.create(
             InstrumentationRegistry.getInstrumentation().targetContext
-        )
-        val times = mutableListOf<Long>()
-        for (i in 1..100) {
-            val time = measureTimeMillis {
-                faceDetection.detectFacesInImage(image, 1)
+        ).use { faceDetection ->
+            val times = mutableListOf<Long>()
+            for (i in 1..100) {
+                val time = measureTimeMillis {
+                    faceDetection.detectFacesInImage(image, 1)
+                }
+                Log.d("Ver-ID", "Full detection pass: %d ms".format(time))
+                times.add(time)
             }
-            Log.d("Ver-ID", "Full detection pass: %d ms".format(time))
-            times.add(time)
+            val average = times.average()
+            Log.d("Ver-ID", "Average detection time: %.02f ms".format(average))
+            val median = times.median()
+            Log.d("Ver-ID", "Median detection time: %d ms".format(median))
         }
-        val average = times.average()
-        Log.d("Ver-ID", "Average detection time: %.02f ms".format(average))
-        val median = times.median()
-        Log.d("Ver-ID", "Median detection time: %d ms".format(median))
         return@runBlocking
     }
 
@@ -145,24 +146,25 @@ class FaceDetectionRetinaFaceTest {
         val image = Image.fromBitmap(bitmap)
         for (setting in SessionConfiguration.all) {
             try {
-                val faceDetection = FaceDetectionRetinaFace(context, setting)
-                val times = mutableListOf<Long>()
-                for (i in 0..<iterationCount) {
-                    val time = measureTimeMillis {
-                        faceDetection.detectFacesInImage(image, 1)
+                FaceDetectionRetinaFace(context, setting).use { faceDetection ->
+                    val times = mutableListOf<Long>()
+                    for (i in 0..<iterationCount) {
+                        val time = measureTimeMillis {
+                            faceDetection.detectFacesInImage(image, 1)
+                        }
+                        times.add(time)
                     }
-                    times.add(time)
+                    val average = times.average()
+                    Log.d(
+                        "Ver-ID",
+                        "Average detection time for %s: %.0f ms".format(setting.toString(), average)
+                    )
+                    val median = times.median()
+                    Log.d(
+                        "Ver-ID",
+                        "Median detection time for %s: %d ms".format(setting.toString(), median)
+                    )
                 }
-                val average = times.average()
-                Log.d(
-                    "Ver-ID",
-                    "Average detection time for %s: %.0f ms".format(setting.toString(), average)
-                )
-                val median = times.median()
-                Log.d(
-                    "Ver-ID",
-                    "Median detection time for %s: %d ms".format(setting.toString(), median)
-                )
             } catch (e: Exception) {
                 Log.e("Ver-ID", "Detection cannot run with configuration: %s".format(setting.toString()))
             }
@@ -176,9 +178,6 @@ class FaceDetectionRetinaFaceTest {
     }
 
     private fun loadExpectedFace(): Face {
-        CoroutineScope(Dispatchers.Default).launch {
-            FaceDetectionRetinaFace.create(InstrumentationRegistry.getInstrumentation().targetContext)
-        }
         return InstrumentationRegistry.getInstrumentation().context.assets.open("face.json").use {
             val json = it.readAllBytes().toString(Charsets.UTF_8)
             val face = JSONObject(json)
