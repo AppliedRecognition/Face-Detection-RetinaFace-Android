@@ -52,14 +52,16 @@ class MyActivity : ComponentActivity() {
         lifecycleScope.launch {
         
             // Create face detection instance
-            val faceDetection = FaceDetectionRetinaFace.create(applicationContext)
+            FaceDetectionRetinaFace.create(applicationContext).use { faceDetection ->
             
-            // Convert bitmap to Ver-ID image
-            val image = Image.fromBitmap(bitmap)
-            
-            // Detect one face
-            faceDetection.detectFacesInImage(image, 1).firstOrNull()?.let { face ->
-            
+                // Convert bitmap to Ver-ID image
+                val image = Image.fromBitmap(bitmap)
+                
+                // Detect one face
+                faceDetection.detectFacesInImage(image, 1).firstOrNull()
+                
+            }?.let { face ->
+                
                 // If face detected create a copy of the input bitmap
                 val annotated = bitmap.copy(Bitmap.Config.ARGB_8888, true)
                 
@@ -102,4 +104,26 @@ If, for some reason, you want to avoid the calibration you can call the `FaceDet
 FaceDetectionRetinaFace(context, SessionConfiguration.FP32)
 ```
 However, be careful. Not all configurations are supported on all devices and the constructor may throw an exception.
+
+#### Note on the `use` extension function
+
+The `use` function is similar to how `Closeable` works with try-with-resources but the body of the function runs in a coroutine scope.
+
+This:
+
+```kotlin
+val faces = FaceDetectionRetinaFace.create(context).use { faceDetection ->
+    faceDetection.detectFacesInImage(image, 1)
+}
+```
+is equivalent of this:
+
+```kotlin
+val faceDetection = FaceDetectionRetinaFace.create(context)
+try {
+    val faces = faceDetection.detectFacesInImage(image, 1)
+} finally {
+    faceDetection.close()
+}
+```
 
