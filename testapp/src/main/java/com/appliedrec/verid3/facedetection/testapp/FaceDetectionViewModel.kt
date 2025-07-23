@@ -12,6 +12,7 @@ import com.appliedrec.verid3.common.Face
 import com.appliedrec.verid3.common.Image
 import com.appliedrec.verid3.common.serialization.fromBitmap
 import com.appliedrec.verid3.facedetection.retinaface.FaceDetectionRetinaFace
+import com.appliedrec.verid3.facedetection.retinaface.toFlags
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -42,9 +43,9 @@ class FaceDetectionViewModel(application: Application) : AndroidViewModel(applic
     init {
         viewModelScope.launch {
             faceDetector = FaceDetectionRetinaFace.create(application)
-            _detectionModelPath.value = faceDetector?.modelPath
-            _detectionUseNnapi.value = faceDetector?.useNnapi
-            _detectionNnapiFlags.value = faceDetector?.nnapiFlags
+            _detectionModelPath.value = faceDetector?.configuration?.modelVariant?.modelName
+            _detectionUseNnapi.value = faceDetector?.configuration?.useNnapi
+            _detectionNnapiFlags.value = faceDetector?.configuration?.nnapiOptions?.toFlags()
             _isLoaded.value = true
         }
     }
@@ -109,7 +110,9 @@ class FaceDetectionViewModel(application: Application) : AndroidViewModel(applic
 
     override fun onCleared() {
         super.onCleared()
-        faceDetector?.close()
+        viewModelScope.launch {
+            faceDetector?.close()
+        }
     }
 }
 
