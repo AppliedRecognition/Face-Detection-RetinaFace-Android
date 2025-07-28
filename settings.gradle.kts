@@ -27,6 +27,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Face detection"
+rootProject.name = "Face Detection RetinaFace"
 include(":lib")
 include(":testapp")

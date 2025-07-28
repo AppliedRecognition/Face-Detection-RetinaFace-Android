@@ -19,8 +19,8 @@ androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "j
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
-verid-common = { group = "com.appliedrec", name = "verid3-common", version = "2.1.0" }
-verid-common-serialization = { group = "com.appliedrec", name = "verid3-serialization", version = "1.0.1" }
+verid-common = { group = "com.appliedrec", name = "verid3-common", version = "3.0.0" }
+verid-common-serialization = { group = "com.appliedrec", name = "verid3-serialization", version = "1.0.2" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
