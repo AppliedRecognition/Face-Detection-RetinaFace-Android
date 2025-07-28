@@ -137,7 +137,7 @@ constructor(context: Context, val configuration: SessionConfiguration) : FaceDet
      * @param limit Maximum number of faces to detect. Capped at 100.
      * @return Array of detected [faces][Face].
      */
-    override suspend fun detectFacesInImage(image: IImage, limit: Int): Array<Face> {
+    override suspend fun detectFacesInImage(image: IImage, limit: Int): List<Face> {
         require(limit in 1..MAX_FACES) { "Limit must be between 1 and $MAX_FACES" }
         return lock.withLock {
             val scale = minOf(1.0f, IMAGE_SIZE.toFloat() / max(image.width, image.height).toFloat())
@@ -159,7 +159,7 @@ constructor(context: Context, val configuration: SessionConfiguration) : FaceDet
         }
     }
 
-    private fun facesFromBuffer(count: Int, scale: Float): Array<Face> {
+    private fun facesFromBuffer(count: Int, scale: Float): List<Face> {
         buffer.rewind()
         val floatBuffer = buffer.asFloatBuffer()
         val faces = mutableListOf<Face>()
@@ -202,7 +202,7 @@ constructor(context: Context, val configuration: SessionConfiguration) : FaceDet
                 mouthRightCorner = PointF(rightMouthX, rightMouthY)
             ))
         }
-        return faces.toTypedArray()
+        return faces
     }
 
     private external fun createNativeContext(modelPath: String, useNnapi: Boolean, nnapiFlags: Int): Long
