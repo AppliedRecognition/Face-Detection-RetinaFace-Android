@@ -63,7 +63,7 @@ class FaceDetectionViewModel(application: Application) : AndroidViewModel(applic
                         bitmap
                     }
                     val image = Image.fromBitmap(safeBitmap)
-                    val faces: Array<Face> =
+                    val faces: List<Face> =
                         faceDetection.detectFacesInImage(image, limit = 1)
                     if (faces.isNotEmpty()) {
                         val annotated = bitmap.copy(Bitmap.Config.ARGB_8888, true)
