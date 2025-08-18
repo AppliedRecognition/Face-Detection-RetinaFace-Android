@@ -31,6 +31,10 @@ namespace verid {
 
         Postprocessing postprocessing_;
         Preprocessing preprocessing_;
+        std::vector<float> inputBuffer_;
+        std::vector<float> boxes_;
+        std::vector<float> scores_;
+        std::vector<float> landmarks_;
 
         void loadModelIO();
     };

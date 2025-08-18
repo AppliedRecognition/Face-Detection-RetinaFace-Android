@@ -44,7 +44,7 @@ namespace verid {
         }
     }
 
-    static std::vector<float> toFloatVector(const Ort::Value& output) {
+    void toFloatVector(const Ort::Value& output, std::vector<float>& out) {
         const auto* dataPtr = output.GetTensorData<float>();
         auto typeInfo = output.GetTensorTypeAndShapeInfo();
         auto shape = typeInfo.GetShape();
@@ -52,16 +52,24 @@ namespace verid {
         for (auto dim : shape) {
             totalElements *= dim;
         }
-        return {dataPtr, dataPtr + totalElements};
+        out.assign(dataPtr, dataPtr + totalElements);
     }
 
     int FaceDetection::detectFaces(void *imageData, int width, int height, int bytesPerRow, int format, int limit, float *buffer) {
-        std::vector<float> input;
-        preprocessing_.preprocessBitmap(imageData, width, height, bytesPerRow, format, input);
-        return detectFaces(input, limit, buffer);
+        const size_t requiredSize = 3 * IMAGE_SIZE * IMAGE_SIZE;
+        if (inputBuffer_.size() != requiredSize) {
+            inputBuffer_.resize(requiredSize);
+        }
+        preprocessing_.preprocessBitmap(imageData, width, height, bytesPerRow, format, inputBuffer_);
+        return detectFaces(inputBuffer_, limit, buffer);
     }
 
     int FaceDetection::detectFaces(std::vector<float> &input, const int limit, float *buffer) {
+        if (input.size() != 3 * IMAGE_SIZE * IMAGE_SIZE) {
+            std::ostringstream oss;
+            oss << "Invalid input size: " << input.size() << ". Expected " << 3 * IMAGE_SIZE * IMAGE_SIZE << ".";
+            throw std::runtime_error(oss.str());
+        }
         std::vector<int64_t> inputShape = {1, 3, IMAGE_SIZE, IMAGE_SIZE};
         Ort::MemoryInfo memoryInfo = Ort::MemoryInfo::CreateCpu(OrtArenaAllocator, OrtMemTypeDefault);
         Ort::Value inputTensor = Ort::Value::CreateTensor<float>(
@@ -89,15 +97,16 @@ namespace verid {
         for (size_t i = 0; i < outputNames_.size(); ++i) {
             outputMap[outputNames_[i]] = std::move(outputTensors[i]);
         }
-        std::vector<float> boxes = toFloatVector(outputMap["boxes"]);
-        std::vector<float> scores = toFloatVector(outputMap["scores"]);
-        std::vector<float> landmarks = toFloatVector(outputMap["landmarks"]);
+        toFloatVector(outputMap["boxes"], boxes_);
+        toFloatVector(outputMap["scores"], scores_);
+        toFloatVector(outputMap["landmarks"], landmarks_);
         // Decode boxes
-        std::vector<DetectionBox> detections = postprocessing_.decode(boxes, scores, landmarks);
+        std::vector<DetectionBox> detections = postprocessing_.decode(boxes_, scores_, landmarks_);
         // NMS
         detections = verid::Postprocessing::nonMaxSuppression(detections, 0.4f, limit);
         int numFaces = std::min(static_cast<int>(detections.size()), limit);
         // Fill the face buffer
+
         for (int i = 0; i < numFaces; ++i) {
             const auto& det = detections[i];
             buffer[0] = det.bounds.x;
