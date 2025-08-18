@@ -38,6 +38,12 @@ namespace verid {
         void preprocessBitmap(void* inputBuffer, int width, int height, int bytesPerRow, int imageFormat, std::vector<float>& outRGB) {
             const int bpp = bytesPerPixel(imageFormat);
             if (bpp < 3) throw std::runtime_error("Unsupported format for RGB extraction");
+            if (!inputBuffer)
+                throw std::invalid_argument("inputBuffer is null");
+            if (width <= 0 || height <= 0)
+                throw std::invalid_argument("Invalid image dimensions");
+            if (bytesPerRow < width * bpp)
+                throw std::invalid_argument("bytesPerRow too small for width");
             const unsigned char* src = static_cast<unsigned char*>(inputBuffer);
             // Compute scale
             float scale = std::min(1.0f, static_cast<float>(targetSize) / static_cast<float>(std::max(width, height)));

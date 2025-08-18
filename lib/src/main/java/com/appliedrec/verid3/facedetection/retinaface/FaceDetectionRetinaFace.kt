@@ -213,6 +213,7 @@ constructor(context: Context, val configuration: SessionConfiguration) : FaceDet
 }
 
 private fun IImage.toDirectByteBuffer(): ByteBuffer {
+    require(data.isNotEmpty()) { "Empty image data" }
     val buffer = ByteBuffer.allocateDirect(data.size)
         .order(ByteOrder.nativeOrder())
     buffer.put(data)

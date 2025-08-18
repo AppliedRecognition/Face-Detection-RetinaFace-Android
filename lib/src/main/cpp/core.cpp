@@ -82,6 +82,10 @@ Java_com_appliedrec_verid3_facedetection_retinaface_FaceDetectionRetinaFace_dete
         if (!out) {
             return 0;
         }
+        jsize bufferCapacity = env->GetDirectBufferCapacity(buffer);
+        if (bufferCapacity < limit * 18 * sizeof(float)) {
+            throw std::runtime_error("Output buffer too small");
+        }
         int numFaces = detection->detectFaces(in, width, height, bytesPerRow, imageFormat, limit,
                                               out);
         return numFaces;
