@@ -79,7 +79,7 @@ mavenPublishing {
         licenses {
             license {
                 name.set("Commercial")
-                url.set("https://raw.githubusercontent.com/AppliedRecognition/Ver-ID-Common-Types-Android/refs/heads/main/LICENCE.txt")
+                url.set("https://raw.githubusercontent.com/AppliedRecognition/Face-Detection-RetinaFace-Android/refs/heads/main/LICENCE.txt")
             }
         }
         scm {
