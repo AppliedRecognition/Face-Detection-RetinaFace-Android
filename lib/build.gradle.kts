@@ -8,7 +8,7 @@ plugins {
     signing
 }
 
-version = "1.0.0"
+version = "1.0.1"
 
 android {
     namespace = "com.appliedrec.verid3.facedetection.retinaface"
