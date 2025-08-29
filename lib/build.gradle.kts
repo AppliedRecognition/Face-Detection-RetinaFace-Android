@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.dokka.gradle.DokkaTaskPartial
 
 plugins {
     alias(libs.plugins.android.library)
@@ -96,6 +97,13 @@ signing {
     sign(publishing.publications)
 }
 
-tasks.dokkaHtml {
-    outputDirectory.set(rootDir.resolve("docs"))
+dokka {
+    dokkaPublications.html {
+        outputDirectory.set(rootProject.file("docs"))
+    }
+}
+
+tasks.withType<DokkaTaskPartial>().configureEach {
+    moduleName.set("RetinaFace face detection")
+    moduleVersion.set(project.version.toString())
 }
