@@ -26,63 +26,106 @@
 <link href="../../../styles/prism.css" rel="Stylesheet">
 <link href="../../../styles/logo-styles.css" rel="Stylesheet">
 <link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
 <script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script>
 <script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
 <script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
 <script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
 <script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer="defer"></script>
 <script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
 </head>
 <body>
     <div class="root">
-<nav class="navigation" id="navigation-wrapper">
-    <div class="navigation--inner">
-        <div class="navigation-title">
-            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
-            <div class="library-name">
-                    <a class="library-name--link" href="../../../index.html">
-                            lib
-                    </a>
-            </div>
-            <div class="library-version">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+            <a class="library-name--link" href="../../../index.html">
+                    lib
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+1.0.2        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active=""
+                        data-filter=":lib/release">androidJvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":lib/release"
+                                       data-filter=":lib/release"/>
+                                <span class="checkbox--icon"></span>
+                                androidJvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
             </div>
         </div>
-        <div class="filter-section" id="filter-section">
-                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":lib:dokkaHtml/release">androidJvm</button>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
         </div>
-    </div>
-    <div class="navigation-controls">
-        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
-        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
-    </div>
-</nav>
+    </nav>
         <div id="container">
             <div class="sidebar" id="leftColumn">
-                <div class="sidebar--inner" id="sideMenu"></div>
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                        data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    lib
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
             </div>
             <div id="main">
-<div class="main-content" data-page-type="classlike" id="content" pageIds="lib::com.appliedrec.verid3.facedetection.retinaface/FaceDetectionRetinaFace///PointingToDeclaration//1946847589">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="lib::com.appliedrec.verid3.facedetection.retinaface/FaceDetectionRetinaFace///PointingToDeclaration//300442814">
   <div class="breadcrumbs"><a href="../../../index.html">lib</a><span class="delimiter">/</span><a href="../index.html">com.appliedrec.verid3.facedetection.retinaface</a><span class="delimiter">/</span><span class="current">FaceDetectionRetinaFace</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Face</span><wbr></wbr><span>Detection</span><wbr></wbr><span>Retina</span><wbr></wbr><span><span>Face</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":lib:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">FaceDetectionRetinaFace</a> <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a><span class="token punctuation">, </span></span><span class="parameter ">configuration<span class="token operator">: </span><a href="../-session-configuration/index.html">SessionConfiguration</a></span></span><span class="token punctuation">)</span> : <span data-unresolved-link="com.appliedrec.verid3.common/FaceDetection///PointingToDeclaration/">FaceDetection</span></div><p class="paragraph">Face detection using RetinaFace model.</p><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":lib:dokkaHtml/release" data-filterable-set=":lib:dokkaHtml/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>context</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Application context.</p></div></div></div></div><div class="table-row" data-filterable-current=":lib:dokkaHtml/release" data-filterable-set=":lib:dokkaHtml/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>model</span><wbr></wbr><span><span>Variant</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Model file variant.</p></div></div></div></div><div class="table-row" data-filterable-current=":lib:dokkaHtml/release" data-filterable-set=":lib:dokkaHtml/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>use</span><wbr></wbr><span><span>Nnapi</span></span></u></div></span></div><div><div class="title"><p class="paragraph"><code class="lang-kotlin">true</code> to use NNAPI for inference.</p></div></div></div></div><div class="table-row" data-filterable-current=":lib:dokkaHtml/release" data-filterable-set=":lib:dokkaHtml/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>nnapi</span><wbr></wbr><span><span>Flags</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Flags for NNAPI.</p></div></div></div></div></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":lib/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">FaceDetectionRetinaFace</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>configuration<span class="token operator">: </span><a href="../-session-configuration/index.html">SessionConfiguration</a></span></span><span class="token punctuation">)</span> : <span data-unresolved-link="com.appliedrec.verid3.common/FaceDetection///PointingToDeclaration/">FaceDetection</span></div><p class="paragraph">Face detection using RetinaFace model.</p><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":lib/release" data-filterable-set=":lib/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>context</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Application context.</p></div></div></div></div><div class="table-row" data-filterable-current=":lib/release" data-filterable-set=":lib/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>model</span><wbr></wbr><span><span>Variant</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Model file variant.</p></div></div></div></div><div class="table-row" data-filterable-current=":lib/release" data-filterable-set=":lib/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>use</span><wbr></wbr><span><span>Nnapi</span></span></u></div></span></div><div><div class="title"><p class="paragraph"><code class="lang-kotlin">true</code> to use NNAPI for inference.</p></div></div></div></div><div class="table-row" data-filterable-current=":lib/release" data-filterable-set=":lib/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>nnapi</span><wbr></wbr><span><span>Flags</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Flags for NNAPI.</p></div></div></div></div></div></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
     <div class="tabs-section-body">
       <div data-togglable="CONSTRUCTOR">
         <h2 class="">Constructors</h2>
-        <div class="table"><a data-name="1682945971%2FConstructors%2F1946847589" anchor-label="FaceDetectionRetinaFace" id="1682945971%2FConstructors%2F1946847589" data-filterable-set=":lib:dokkaHtml/release"></a>
-          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":lib:dokkaHtml/release" data-filterable-set=":lib:dokkaHtml/release">
+        <div class="table"><a data-name="1682945971%2FConstructors%2F300442814" anchor-label="FaceDetectionRetinaFace" id="1682945971%2FConstructors%2F300442814" data-filterable-set=":lib/release"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":lib/release" data-filterable-set=":lib/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-face-detection-retina-face.html"><span>Face</span><wbr></wbr><span>Detection</span><wbr></wbr><span>Retina</span><wbr></wbr><span><span>Face</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1682945971%2FConstructors%2F1946847589"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1682945971%2FConstructors%2F300442814"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":lib:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a><span class="token punctuation">, </span></span><span class="parameter ">configuration<span class="token operator">: </span><a href="../-session-configuration/index.html">SessionConfiguration</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Create an instance with specific settings. We recommend using <a href="-companion/create.html">FaceDetectionRetinaFace.create</a> (Kotlin) or <span data-unresolved-link="com.appliedrec.verid3.facedetection.retinaface/FaceDetectionRetinaFace.Companion/createAsync/#android.content.Context#kotlin.Boolean/PointingToDeclaration/">FaceDetectionRetinaFace.createAsync</span> (Java) factory methods to take advantage of optimal configuration calibration.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":lib/release"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a><span class="token punctuation">, </span></span><span class="parameter ">configuration<span class="token operator">: </span><a href="../-session-configuration/index.html">SessionConfiguration</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Create an instance with specific settings. We recommend using <a href="-companion/create.html">FaceDetectionRetinaFace.create</a> (Kotlin) or <span data-unresolved-link="com.appliedrec.verid3.facedetection.retinaface/FaceDetectionRetinaFace.Companion/createAsync/#android.content.Context#kotlin.Boolean/PointingToDeclaration/">FaceDetectionRetinaFace.createAsync</span> (Java) factory methods to take advantage of optimal configuration calibration.</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -91,17 +134,17 @@
       </div>
       <div data-togglable="TYPE">
         <h2 class="">Types</h2>
-        <div class="table"><a data-name="741055289%2FClasslikes%2F1946847589" anchor-label="Companion" id="741055289%2FClasslikes%2F1946847589" data-filterable-set=":lib:dokkaHtml/release"></a>
-          <div class="table-row" data-filterable-current=":lib:dokkaHtml/release" data-filterable-set=":lib:dokkaHtml/release">
+        <div class="table"><a data-name="741055289%2FClasslikes%2F300442814" anchor-label="Companion" id="741055289%2FClasslikes%2F300442814" data-filterable-set=":lib/release"></a>
+          <div class="table-row" data-filterable-current=":lib/release" data-filterable-set=":lib/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="741055289%2FClasslikes%2F1946847589"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="741055289%2FClasslikes%2F300442814"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":lib:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":lib/release"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
                 </div>
               </div>
             </div>
@@ -110,17 +153,32 @@
       </div>
       <div data-togglable="PROPERTY">
         <h2 class="">Properties</h2>
-        <div class="table"><a data-name="1633770961%2FProperties%2F1946847589" anchor-label="confidenceThreshold" id="1633770961%2FProperties%2F1946847589" data-filterable-set=":lib:dokkaHtml/release"></a>
-          <div class="table-row" data-filterable-current=":lib:dokkaHtml/release" data-filterable-set=":lib:dokkaHtml/release">
+        <div class="table"><a data-name="1633770961%2FProperties%2F300442814" anchor-label="confidenceThreshold" id="1633770961%2FProperties%2F300442814" data-filterable-set=":lib/release"></a>
+          <div class="table-row" data-filterable-current=":lib/release" data-filterable-set=":lib/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="confidence-threshold.html"><span>confidence</span><wbr></wbr><span><span>Threshold</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1633770961%2FProperties%2F1946847589"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1633770961%2FProperties%2F300442814"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":lib:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">var </span><a href="confidence-threshold.html">confidenceThreshold</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-float/index.html">Float</a></div><div class="brief "><p class="paragraph">Minimum confidence threshold for detected faces.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":lib/release"><div class="symbol monospace"><span class="token keyword">var </span><a href="confidence-threshold.html">confidenceThreshold</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a></div><div class="brief "><p class="paragraph">Minimum confidence threshold for detected faces.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1220308164%2FProperties%2F300442814" anchor-label="configuration" id="-1220308164%2FProperties%2F300442814" data-filterable-set=":lib/release"></a>
+          <div class="table-row" data-filterable-current=":lib/release" data-filterable-set=":lib/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="configuration.html"><span><span>configuration</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1220308164%2FProperties%2F300442814"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":lib/release"><div class="symbol monospace"><span class="token keyword">val </span><a href="configuration.html">configuration</a><span class="token operator">: </span><a href="../-session-configuration/index.html">SessionConfiguration</a></div></div></div>
                 </div>
               </div>
             </div>
@@ -129,32 +187,32 @@
       </div>
       <div data-togglable="FUNCTION">
         <h2 class="">Functions</h2>
-        <div class="table"><a data-name="75593082%2FFunctions%2F1946847589" anchor-label="close" id="75593082%2FFunctions%2F1946847589" data-filterable-set=":lib:dokkaHtml/release"></a>
-          <div class="table-row" data-filterable-current=":lib:dokkaHtml/release" data-filterable-set=":lib:dokkaHtml/release">
+        <div class="table"><a data-name="75593082%2FFunctions%2F300442814" anchor-label="close" id="75593082%2FFunctions%2F300442814" data-filterable-set=":lib/release"></a>
+          <div class="table-row" data-filterable-current=":lib/release" data-filterable-set=":lib/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="close.html"><span><span>close</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="75593082%2FFunctions%2F1946847589"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="75593082%2FFunctions%2F300442814"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":lib:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="close.html"><span class="token function">close</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Close the instance and release its resources</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":lib/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="close.html"><span class="token function">close</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Close the instance and release its resources</p></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="-1209809878%2FFunctions%2F1946847589" anchor-label="detectFacesInImage" id="-1209809878%2FFunctions%2F1946847589" data-filterable-set=":lib:dokkaHtml/release"></a>
-          <div class="table-row" data-filterable-current=":lib:dokkaHtml/release" data-filterable-set=":lib:dokkaHtml/release">
+<a data-name="-1209809878%2FFunctions%2F300442814" anchor-label="detectFacesInImage" id="-1209809878%2FFunctions%2F300442814" data-filterable-set=":lib/release"></a>
+          <div class="table-row" data-filterable-current=":lib/release" data-filterable-set=":lib/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="detect-faces-in-image.html"><span>detect</span><wbr></wbr><span>Faces</span><wbr></wbr><span>In</span><wbr></wbr><span><span>Image</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1209809878%2FFunctions%2F1946847589"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1209809878%2FFunctions%2F300442814"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":lib:dokkaHtml/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="detect-faces-in-image.html"><span class="token function">detectFacesInImage</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">image<span class="token operator">: </span><span data-unresolved-link="com.appliedrec.verid3.common/IImage///PointingToDeclaration/">IImage</span><span class="token punctuation">, </span></span><span class="parameter ">limit<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><span class="token keyword"></span><span data-unresolved-link="com.appliedrec.verid3.common/Face///PointingToDeclaration/">Face</span><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Detect faces in image</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":lib/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">suspend override </span><span class="token keyword">fun </span><a href="detect-faces-in-image.html"><span class="token function">detectFacesInImage</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">image<span class="token operator">: </span><span data-unresolved-link="com.appliedrec.verid3.common/IImage///PointingToDeclaration/">IImage</span><span class="token punctuation">, </span></span><span class="parameter ">limit<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span data-unresolved-link="com.appliedrec.verid3.common/Face///PointingToDeclaration/">Face</span><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Detect faces in image</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -164,11 +222,16 @@
     </div>
   </div>
 </div>
-      <div class="footer">
-        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2025 Copyright</span><span
-                class="pull-right"><span>Generated by </span><a
-                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
-      </div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2025 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
             </div>
         </div>
     </div>

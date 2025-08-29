@@ -10,6 +10,7 @@ $dokka.location:com.appliedrec.verid3.facedetection.retinaface/FaceDetectionReti
 $dokka.location:com.appliedrec.verid3.facedetection.retinaface/FaceDetectionRetinaFace/FaceDetectionRetinaFace/#android.content.Context#com.appliedrec.verid3.facedetection.retinaface.SessionConfiguration/PointingToDeclaration/lib/com.appliedrec.verid3.facedetection.retinaface/-face-detection-retina-face/-face-detection-retina-face.html
 $dokka.location:com.appliedrec.verid3.facedetection.retinaface/FaceDetectionRetinaFace/close/#/PointingToDeclaration/lib/com.appliedrec.verid3.facedetection.retinaface/-face-detection-retina-face/close.html
 $dokka.location:com.appliedrec.verid3.facedetection.retinaface/FaceDetectionRetinaFace/confidenceThreshold/#/PointingToDeclaration/lib/com.appliedrec.verid3.facedetection.retinaface/-face-detection-retina-face/confidence-threshold.html
+$dokka.location:com.appliedrec.verid3.facedetection.retinaface/FaceDetectionRetinaFace/configuration/#/PointingToDeclaration/lib/com.appliedrec.verid3.facedetection.retinaface/-face-detection-retina-face/configuration.html
 $dokka.location:com.appliedrec.verid3.facedetection.retinaface/FaceDetectionRetinaFace/detectFacesInImage/#com.appliedrec.verid3.common.IImage#kotlin.Int/PointingToDeclaration/lib/com.appliedrec.verid3.facedetection.retinaface/-face-detection-retina-face/detect-faces-in-image.html
 $dokka.location:com.appliedrec.verid3.facedetection.retinaface/ModelVariant.Companion///PointingToDeclaration/lib/com.appliedrec.verid3.facedetection.retinaface/-model-variant/-companion/index.html
 $dokka.location:com.appliedrec.verid3.facedetection.retinaface/ModelVariant.Companion/fromModelName/#kotlin.String/PointingToDeclaration/lib/com.appliedrec.verid3.facedetection.retinaface/-model-variant/-companion/from-model-name.html
@@ -51,4 +52,3 @@ $dokka.location:com.appliedrec.verid3.facedetection.retinaface/SessionConfigurat
 $dokka.location:com.appliedrec.verid3.facedetection.retinaface/SessionConfiguration/toString/#/PointingToDeclaration/lib/com.appliedrec.verid3.facedetection.retinaface/-session-configuration/to-string.html
 $dokka.location:com.appliedrec.verid3.facedetection.retinaface/SessionConfiguration/useNnapi/#/PointingToDeclaration/lib/com.appliedrec.verid3.facedetection.retinaface/-session-configuration/use-nnapi.html
 com.appliedrec.verid3.facedetection.retinaface
-
