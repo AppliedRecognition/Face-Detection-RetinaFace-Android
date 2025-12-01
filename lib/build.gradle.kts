@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.dokka.gradle.DokkaTaskPartial
 
 plugins {
     alias(libs.plugins.android.library)
@@ -8,7 +9,7 @@ plugins {
     signing
 }
 
-version = "1.0.2"
+version = "1.0.3"
 
 android {
     namespace = "com.appliedrec.verid3.facedetection.retinaface"
@@ -19,9 +20,6 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
-        ndk {
-            abiFilters += listOf("arm64-v8a", "x86_64")
-        }
     }
 
     buildTypes {
@@ -96,6 +94,13 @@ signing {
     sign(publishing.publications)
 }
 
-tasks.dokkaHtml {
-    outputDirectory.set(rootDir.resolve("docs"))
+dokka {
+    dokkaPublications.html {
+        outputDirectory.set(rootProject.file("docs"))
+    }
+}
+
+tasks.withType<DokkaTaskPartial>().configureEach {
+    moduleName.set("RetinaFace face detection")
+    moduleVersion.set(project.version.toString())
 }
