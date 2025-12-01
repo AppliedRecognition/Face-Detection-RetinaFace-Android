@@ -9,7 +9,7 @@ plugins {
     signing
 }
 
-version = "1.0.2"
+version = "1.0.3"
 
 android {
     namespace = "com.appliedrec.verid3.facedetection.retinaface"
@@ -20,9 +20,6 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
-        ndk {
-            abiFilters += listOf("arm64-v8a", "x86_64")
-        }
     }
 
     buildTypes {
