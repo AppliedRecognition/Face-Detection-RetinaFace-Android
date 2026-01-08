@@ -72,10 +72,16 @@ namespace verid {
             float* G = R + N;
             float* B = G + N;
 #ifdef __AVX2__
-            LOGI("Using AVX2");
+            if (!loggedPreproc) {
+                LOGI("Face detection using AVX2");
+                loggedPreproc = true;
+            }
             simdSplitAVX2(square, R, G, B, N);
 #elif defined(__ARM_NEON)
-            LOGI("Using NEON");
+            if (!loggedPreproc) {
+                LOGI("Face detection using NEON");
+                loggedPreproc = true;
+            }
             simdSplitNEON(square, R, G, B, N);
 #else
 #pragma omp parallel for if (N > 10000)
@@ -90,6 +96,7 @@ namespace verid {
     private:
         int targetSize;
         std::vector<unsigned char> squareBuffer;
+        bool loggedPreproc = false;
 
         static int bytesPerPixel(int format) {
             switch (format) {
