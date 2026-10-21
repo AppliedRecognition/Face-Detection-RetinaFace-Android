@@ -6,6 +6,8 @@ on:
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
+  schedule:
+    - cron: '30 2 * * 1'
 
 jobs:
   analyze:
@@ -26,6 +28,11 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: gradle
+
+    - name: Install Android SDK 36
+      run: |
+        yes | sdkmanager --licenses || true
+        sdkmanager "platforms;android-36"
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
